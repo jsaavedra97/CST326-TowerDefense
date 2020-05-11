@@ -7,9 +7,14 @@ public class Purse : MonoBehaviour
 {
 
 	public Text purseAmount;
-	static public float amount = 0;
+	static public float amount = 10;
 
 	void Start()
+	{
+		purseAmount.text = amount.ToString();
+	}
+
+    void Update()
 	{
 		purseAmount.text = amount.ToString();
 	}
@@ -18,5 +23,15 @@ public class Purse : MonoBehaviour
 	{
         amount += coins;
         purseAmount.text = amount.ToString();
+	}
+
+    public void decreaseAmount()
+	{
+		amount -= 10;
+	}
+
+    public float getPurseAmount()
+	{
+		return amount;
 	}
 }
