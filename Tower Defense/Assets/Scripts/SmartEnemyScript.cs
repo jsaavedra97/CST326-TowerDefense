@@ -22,6 +22,9 @@ public class SmartEnemyScript : MonoBehaviour
     [Header("Unity Stuff")]
     public Image healthbar;
 
+    // Audio Stuff
+    public AudioSource explosion;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +32,8 @@ public class SmartEnemyScript : MonoBehaviour
         tower = GameObject.FindGameObjectWithTag("Tower");
 
         health = startHealth;
+
+        explosion = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -49,7 +54,16 @@ public class SmartEnemyScript : MonoBehaviour
             Debug.Log("I'm DEAD!");
             int coins = typeA ? 10 : 20;
             purse.increasePurse(coins);
-            Destroy(gameObject);
+
+            StartCoroutine(Die());
+
         }
+    }    
+
+    IEnumerator Die()
+    {
+        explosion.Play();
+        yield return new WaitForSeconds(0.25f);
+        Destroy(gameObject); 
     }
 }

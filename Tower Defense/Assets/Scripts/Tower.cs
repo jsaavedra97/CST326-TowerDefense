@@ -1,10 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Tower : MonoBehaviour
 {
+	public GameObject buttonShow;
+
     public float towerHealth = 4;
+	private float health;
+
+	//Health Bar Stuff
+	[Header("Unity Stuff")]
+	public Image healthbar;
+
+    void Start()
+	{
+		health = towerHealth;
+	}
+
 
 	void OnCollisionEnter(Collision collision)
 	{
@@ -12,10 +27,14 @@ public class Tower : MonoBehaviour
 		{
             Debug.Log("Ouch");
 			Destroy(collision.gameObject);
-            towerHealth--;
+            health--;
 
-			if (towerHealth == 0)
+			healthbar.fillAmount = health / towerHealth;
+
+
+			if (health == 0)
 			{
+				buttonShow.SetActive(true);
 				Destroy(gameObject);
 			}
 		}
